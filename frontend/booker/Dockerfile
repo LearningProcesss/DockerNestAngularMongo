@@ -6,4 +6,4 @@ WORKDIR /usr/share/nginx/html
 
 RUN ng build --prod
 
-COPY dist/ .
+COPY dist/ .ls

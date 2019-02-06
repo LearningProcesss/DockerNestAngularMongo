@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <app-booklistitem *ngFor="let book of booksReturn | async as list" [book]="book"></app-booklistitem>
+        </div>
+        <!-- <div class="col-md-6">
+            <router-outlet></router-outlet>
+        </div> -->
+    </div>
+</div>

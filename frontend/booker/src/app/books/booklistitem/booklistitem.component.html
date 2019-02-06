@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    {{book.titolo}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{book.autore}}</h5>
+    <p class="card-text">Costo: {{book.costo}}</p>
+    <a [routerLink]="[ './view', book.autore]" class="btn btn-success">Apri</a>
+    <a [routerLink]="[ './edit', book.autore]" class="btn btn-info">Modifica</a>
+    <button class="btn btn-danger" (click) = "onDeleteButton()">Elimina</button>
+  </div>
+</div>

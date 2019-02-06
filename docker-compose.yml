@@ -6,7 +6,7 @@ services:
     ports:
      - "27017:27017"
   frontend:
-    build: frontend/front
+    build: frontend/booker
     ports:
       - "3000:80"
   backend:

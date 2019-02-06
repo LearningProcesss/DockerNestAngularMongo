@@ -12,7 +12,7 @@ export class BooksService implements IBookService {
     async findAll(): Promise<IBook[]> {
         return await this.bookModel.find();
     }
-    async findById(ID: number): Promise<IBook> {
+    async findById(ID: string): Promise<IBook> {
         return await this.bookModel.findById(ID);
     }
     findOne(options: object): Promise<IBook> {
@@ -25,7 +25,9 @@ export class BooksService implements IBookService {
     update(ID: number, newValue: IBook): Promise<IBook> {
         throw new Error("Method not implemented.");
     }
-    delete(ID: number): Promise<IBook> {
-        throw new Error("Method not implemented.");
+    async delete(ID: string): Promise<IBook> {
+        console.log("DELETE" + ID);
+
+        return await this.bookModel.findOneAndDelete({ _id: ID });
     }
 }
