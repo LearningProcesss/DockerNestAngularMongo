@@ -25,11 +25,11 @@ export class BooksService {
   }
 
   public getBook(id: string) {
-    return this.httpclient.get<Book>(environment.api + id);
+    return this.httpclient.get<Book>(`${environment.api}${id}`);
   }
 
   public deleteBook(id: string) {
-    this.httpclient.delete<Book>(environment.api + id).subscribe((book: Book) => {
+    this.httpclient.delete<Book>(`${environment.api}${id}`).subscribe((book: Book) => {
       // this.delete.emit(book);
     }, error => {
 
