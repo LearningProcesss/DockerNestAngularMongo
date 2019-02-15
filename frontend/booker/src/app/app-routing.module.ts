@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: "", component: DashboardComponent },
   {
     path: "books", component: BooklistComponent, children: [
+      { path: "new", component: BookvieweditComponent, data: { "edit": true } },
       { path: "edit/:id", component: BookvieweditComponent, data: { "edit": true } },
       { path: "view/:id", component: BookvieweditComponent, data: { "edit": false } }
     ]

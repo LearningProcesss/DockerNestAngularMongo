@@ -12,7 +12,7 @@
         </div>
     </div>
 </form> -->
-<form id="bookForm" *ngIf="visualizzaForm" [formGroup]="bookFormGroup">
+<form id="bookForm" [formGroup]="bookFormGroup">
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="titolo">Titolo</label>
@@ -27,7 +27,7 @@
         <label for="costo">Costo</label>
         <input formControlName="costo" type="number" class="form-control" id="costo" placeholder="0.0 $">
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="inputAddress2">Address 2</label>
         <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
     </div>
@@ -55,11 +55,11 @@
                 Check me out
             </label>
         </div>
-    </div>
+    </div> -->
     <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-        <button type="button" class="btn btn-info">Modifica</button>
-        <button type="button" class="btn btn-light">Indietro</button>
+        <button (click)="save()"  *ngIf="edit" type="button" class="btn btn-info">{{testoBtn}}</button>
+        <!-- <button type="button" class="btn btn-light">Indietro</button> -->
         <div class="btn-group" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">

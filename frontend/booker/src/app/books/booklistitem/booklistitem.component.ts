@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Book } from '../book.interface';
+import { IBook } from '../book.interface';
 import { BooksService } from '../books.service';
+import { BookrepositoryService } from '../bookrepository/bookrepository.service';
 
 @Component({
   selector: 'app-booklistitem',
@@ -9,9 +10,9 @@ import { BooksService } from '../books.service';
 })
 export class BooklistitemComponent implements OnInit {
 
-  @Input() book: Book;
+  @Input() book: IBook;
 
-  constructor(private bookService: BooksService) { }
+  constructor(private bookService: BookrepositoryService) { }
 
   ngOnInit() {
   }
@@ -19,7 +20,7 @@ export class BooklistitemComponent implements OnInit {
   onDeleteButton() {
     console.log(this.book._id);
     
-    this.bookService.deleteBook(this.book._id);
+    // this.bookService.deleteBook(this.book.id);
   }
 
 }

@@ -1,20 +1,30 @@
-import { Controller, Get, Response, HttpStatus, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Response, HttpStatus, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { IBook } from './book.interface';
+import { IRestApiQueryInterpreter } from 'src/book/rest.api.query.interpreter';
 
 @Controller('books')
 export class BooksController {
     constructor(private readonly bookService: BooksService) { }
 
     @Get()
-    public async getBooks(@Response() res) {
+    public async getBooks(@Response() res, @Query() param: IRestApiQueryInterpreter) {
+        console.log(param);
+        
         const books = await this.bookService.findAll();
+
         return res.status(HttpStatus.OK).json(books);
     }
 
     @Get("/:id")
-    public async getBook(@Response() res, @Param() param){
+    public async getBook(@Response() res, @Param() param) {
         const bookDb = await this.bookService.findById(param.id);
+        return res.status(HttpStatus.OK).json(bookDb);
+    }
+
+    @Put("/:id")
+    public async updateBook(@Response() res, @Body() bookHttp: IBook, @Param() param) {
+        const bookDb = await this.bookService.update(param.id, bookHttp);
         return res.status(HttpStatus.OK).json(bookDb);
     }
 

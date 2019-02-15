@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BooksService } from '../books.service';
-import { Book } from '../book.interface';
+import { IBook } from '../book.interface';
 import { Observable, Subscription } from 'rxjs';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { BookrepositoryService } from '../bookrepository/bookrepository.service';
 
 @Component({
   selector: 'app-booklist',
@@ -10,23 +12,16 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class BooklistComponent implements OnInit, OnDestroy {
 
-  booksReturn: Observable<Book[]>;
-  onBookDelete: Subscription;
+  // booksReturn: Observable<Book[]>;
 
-  subscription: Subscription;
-
-  constructor(private bookService: BooksService) { }
+  constructor(public bookService: BookrepositoryService) { }
 
   ngOnInit() {
-    //  this.subscription = this.bookService.booksRepository.subscribe((data: Book[]) => {
-
-    //   });
-    this.booksReturn = this.bookService.getBooks();
-
+    this.bookService.getBooks();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+
   }
 
 

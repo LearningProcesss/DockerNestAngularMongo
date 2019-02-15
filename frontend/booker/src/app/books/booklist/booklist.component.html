@@ -1,7 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <app-booklistitem *ngFor="let book of booksReturn | async as list" [book]="book"></app-booklistitem>
+            <a [routerLink]="[ './new']"  routerLinkActive="active" class="btn btn-success btn-lg btn-block">Nuovo</a>
+            <hr>
+            <app-booksfilter></app-booksfilter>
+            <hr>
+            <app-booklistitem *ngFor="let book of bookService.booksCache$ | async as list" [book]="book"></app-booklistitem>
         </div>
         <div class="col-md-6">
             <router-outlet></router-outlet>
