@@ -18,7 +18,7 @@ export class BooksfilterComponent implements OnInit {
       debounceTime(500)
     ).subscribe(query => {
       console.log(query);
-      
+      this.bookService.getBooks(query != "" ? `titolo~${query},autore~${query}` : "", query != "" ? "or": "");
     });
   }
 

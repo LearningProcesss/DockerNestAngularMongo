@@ -6,8 +6,8 @@ import { IParamInterpreter } from '../interface/IParamInterpreter';
 
 export class Query extends AbstractParamInterpreter implements IParamInterpreter<MatchStage> {
 
-    constructor(parameter: string, protected schema: mongoose.Schema<any>) {
-        super(parameter, schema);
+    constructor(parameter: string, protected schema: mongoose.Schema<any>, protected operator: string) {
+        super(parameter, schema, operator);
     }
     interpretParamater() {
         
@@ -25,7 +25,7 @@ export class Query extends AbstractParamInterpreter implements IParamInterpreter
         return this.paramter.split(",");
     }
     buildInitialStage() {
-        this.stage = new MatchStage();
+        this.stage = new MatchStage(this.operator);
     }
     stageInternal(): object {
         return this.stage.stage;

@@ -18,7 +18,7 @@ export class RestQueryToMongodb {
         if (this.httpParams.query) {
             // this.pipelineArray.pipeline.push(new Query(this.httpParams.query, this.schema).interpretParamater());
 
-            let q = new Query(this.httpParams.query, this.schema).interpretParamater();
+            let q = new Query(this.httpParams.query, this.schema, this.httpParams.operator).interpretParamater();
 
             this.aggregatorContainerJs.push(q);
         }

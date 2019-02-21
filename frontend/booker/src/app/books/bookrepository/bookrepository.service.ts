@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Model, ModelFactory } from '@angular-extensions/model';
 import { Observable } from 'rxjs';
 import { IBook } from '../book.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -47,8 +47,23 @@ export class BookrepositoryService {
     });
   }
 
-  getBooks() {
-    this.httpclient.get<IBook[]>(environment.api).subscribe(booksDb => {
+  getBooks(query?: string, operator?: string) {
+
+    let params = {
+
+    }
+
+    if(query != null && query != undefined && query != "") {
+      params["query"] = [query];
+    }
+
+    if(operator != null && operator != undefined && operator != "") {
+      params["operator"] = [operator];
+    }
+
+    // let params = new HttpParams().set('query', query).set("operator", operator);
+
+    this.httpclient.get<IBook[]>(environment.api, { params: params }).subscribe(booksDb => {
 
       const bookrepositorys = this.model.get();
 

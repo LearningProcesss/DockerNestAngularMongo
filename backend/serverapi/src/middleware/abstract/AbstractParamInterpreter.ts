@@ -3,6 +3,6 @@ import * as mongoose from 'mongoose';
 export abstract class AbstractParamInterpreter {
     protected stage: IStage;
     protected stageJs: {};
-    constructor(protected paramter: string, protected schema: mongoose.Schema<any>) {
+    constructor(protected paramter: string, protected schema: mongoose.Schema<any>, protected operator: string) {
     }
 }
