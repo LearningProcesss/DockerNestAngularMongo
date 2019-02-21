@@ -1,7 +1,7 @@
 import { IBook } from './book.interface';
 
 export interface IBookService {
-    aggregate(): Promise<IBook[]>;
+    aggregate(aggregat: any): Promise<IBook[]>;
     findAll(): Promise<IBook[]>;
     findById(ID: string): Promise<IBook | null>;
     findOne(options: object): Promise<IBook | null>;

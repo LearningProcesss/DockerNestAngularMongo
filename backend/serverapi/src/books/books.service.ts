@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Model, Aggregate } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { IBook } from './book.interface';
-import { debug } from 'console';
 import { IBookService } from './book.service.interface';
 
 @Injectable()
@@ -10,12 +9,11 @@ export class BooksService implements IBookService {
 
     constructor(@InjectModel('Book') private readonly bookModel: Model<IBook>) { }
 
-    async aggregate(): Promise<IBook[]> {
-        return await this.bookModel.aggregate();
+    async aggregate(aggregate: any): Promise<IBook[]> {
+        return await this.bookModel.aggregate(aggregate);
     }
 
     async findAll(): Promise<IBook[]> {
-
         return await this.bookModel.find();
     }
     async findById(ID: string): Promise<IBook> {

@@ -1,16 +1,29 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BooksModule } from './books/books.module';
-import { BookController } from './book/book.controller';
-import { BooksService } from './books/books.service';
+import { MongoqlMiddleware } from './mongoql.middleware';
+import { BookSchema } from './books/book.schema';
+import { BooksController } from './books/books.controller';
+
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.mongodburi),
-    BooksModule],
-  controllers: [AppController, BookController],
-  providers: [AppService],
+    BooksModule
+  ],
+  controllers: [],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(MongoqlMiddleware)
+      .with(
+        {
+          model: BookSchema,
+          path: "books"
+        }
+      )
+      .forRoutes(BooksController);
+  }
+}
