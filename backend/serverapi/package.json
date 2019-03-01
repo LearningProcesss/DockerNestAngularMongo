@@ -23,15 +23,22 @@
   "dependencies": {
     "@nestjs/common": "^5.4.0",
     "@nestjs/core": "^5.4.0",
+    "@nestjs/elasticsearch": "^0.2.1",
+    "@nestjs/microservices": "^5.7.3",
     "@nestjs/mongoose": "^5.2.2",
+    "@types/elasticsearch": "^5.0.31",
     "@types/mongoose": "^5.3.10",
+    "amqp-connection-manager": "^2.3.0",
+    "amqplib": "^0.5.3",
+    "elasticsearch": "^15.4.1",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.6",
     "object-path": "^0.11.4",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "typescript-rabbitmq": "0.0.8"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.1.0",

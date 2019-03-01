@@ -1,20 +1,20 @@
 import { Controller, Get, Response, Request, HttpStatus, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { IBook } from './book.interface';
-import { RestQueryToMongodb } from "src/middleware/implementation/RestQueryToMongodb";
 import { IHttpRestParams } from "src/middleware/interface/IHttpRestParams";
+import { EsService } from 'src/es/esservice';
 
 
 @Controller('books')
 export class BooksController {
-    constructor(private readonly bookService: BooksService) { }
+    constructor(private readonly bookService: BooksService, private readonly logService: EsService) { }
 
     @Get()
     public async getBooks(@Request() req, @Response() res, @Query() param: IHttpRestParams) {
-
-        console.log("getBooks", JSON.stringify(req.aggregator.length));
-
-        const books = req.aggregator === null || req.aggregator === undefined || req.aggregator.length == 0 ? await this.bookService.findAll() : await this.bookService.aggregate(req.aggregator); 
+        
+        this.logService.log("logs-method", "method", "getBooks", req.aggregator, 1);
+        
+        const books = req.aggregator === null || req.aggregator === undefined || req.aggregator.length == 0 ? await this.bookService.findAll() : await this.bookService.aggregate(req.aggregator);
 
         return res.status(HttpStatus.OK).json(books);
     }

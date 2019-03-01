@@ -8,10 +8,10 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4000
+# EXPOSE 4000
 
 # ENV mongodburi=mongodb://database/backend
 
-ENV mongodburi=mongodb://localhost:27017/backend
+# ENV mongodburi=mongodb://localhost:27017/backend
 
 CMD [ "npm", "start" ]

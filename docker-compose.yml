@@ -9,9 +9,29 @@ services:
     build: frontend/booker
     ports:
       - "3000:80"
+    depends_on: 
+      - backend
   backend:
     build: backend/serverapi
     ports:
       - "4000:4000"
-    
+    environment: 
+      - port=4000
+      - mongodburi=mongodb://database/backend
+      - loguri=log:9200
+    depends_on: 
+      - database
+  log:
+    image: elasticsearch:5
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment: 
+      - discovery.type=single-node
+  kibana:
+    image: kibana:5
+    ports:
+      - "5601:5601"
+    depends_on: 
+      - log
 

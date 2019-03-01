@@ -30,12 +30,15 @@ export class ConditionOperatorCreator extends AbstractConditionOperatorObjectCre
     }
 
     init(): void {
+        
         let campoValoreNoOperator = this.fragment.split(this.regexOperators);
+        
         let test = this.regexOperators.exec(this.fragment);
 
         this.fieldModelValue = { fieldType: this.schema.path(campoValoreNoOperator[0])["instance"], field: campoValoreNoOperator[0], operator: test != null && test.length == 1 ? test[0] : "", value: campoValoreNoOperator[1] };
 
         campoValoreNoOperator = null;
+        
         test = null;
     }
     interpret(): object {

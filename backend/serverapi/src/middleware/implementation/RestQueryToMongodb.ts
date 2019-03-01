@@ -8,11 +8,22 @@ export class RestQueryToMongodb {
 
     aggregatorContainerJs: any[] = [];
 
+    static pipeline: any[] = [];
+
     constructor(private httpParams: IHttpRestParams, private schema: mongoose.Schema<any>) {
-        
+
         this.pipelineArray = new Pipeline();
-        
+
         this.aggregator();
+    }
+
+    static parse(httpParams: IHttpRestParams, schema: mongoose.Schema<any>) {
+        if (httpParams.query) {
+            let q = new Query(httpParams.query, schema, httpParams.operator).interpretParamater();
+
+            this.pipeline.push(q);
+        }
+        return this.pipeline;
     }
     aggregator() {
         if (this.httpParams.query) {
