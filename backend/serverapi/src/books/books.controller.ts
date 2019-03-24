@@ -11,10 +11,12 @@ export class BooksController {
 
     @Get()
     public async getBooks(@Request() req, @Response() res, @Query() param: IHttpRestParams) {
-        
-        this.logService.log("logs-method", "method", "getBooks", req.aggregator, 1);
-        
+
+        // this.logService.log("logs-method", "method", "getBooks", req.aggregator, 1);
+
         const books = req.aggregator === null || req.aggregator === undefined || req.aggregator.length == 0 ? await this.bookService.findAll() : await this.bookService.aggregate(req.aggregator);
+
+        // this.logService.log("logs-method", "method", "getBooks", books, 1);
 
         return res.status(HttpStatus.OK).json(books);
     }
@@ -33,13 +35,30 @@ export class BooksController {
 
     @Post()
     public async createBook(@Response() res, @Body() bookHttp: IBook) {
-        const bookDb = await this.bookService.create(bookHttp);
-        return res.status(HttpStatus.OK).json(bookDb);
+
+        try {
+
+            const bookDb = await this.bookService.create(bookHttp);
+            
+            this.logService.log("logs-method", "method", "createBook", bookDb, 1);
+
+            return res.status(HttpStatus.OK).json(bookDb);
+        } catch (error) {
+
+            this.logService.log("logs-method", "method", "createBook", error, 2);
+
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Delete("/:id")
     public async deleteBook(@Response() res, @Param() param) {
+
         const bookDb = await this.bookService.delete(param.id);
+
+        this.logService.log("logs-method", "method", "deleteBook", bookDb, 1);
+
         return res.status(HttpStatus.OK).json(bookDb);
+
     }
 }

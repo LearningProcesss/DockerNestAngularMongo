@@ -4,7 +4,7 @@ import { MatchStage } from './MatchStage';
 import { ConditionOperatorCreator } from './ConditionOperatorCreator';
 import { IParamInterpreter } from '../interface/IParamInterpreter';
 
-export class Query extends AbstractParamInterpreter implements IParamInterpreter<MatchStage> {
+export class Query extends AbstractParamInterpreter implements IParamInterpreter {
 
     constructor(parameter: string, protected schema: mongoose.Schema<any>, protected operator: string) {
         super(parameter, schema, operator);

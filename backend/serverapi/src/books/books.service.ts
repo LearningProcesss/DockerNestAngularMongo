@@ -30,8 +30,6 @@ export class BooksService implements IBookService {
         return await this.bookModel.findByIdAndUpdate({ _id: ID }, newValue);
     }
     async delete(ID: string): Promise<IBook> {
-        console.log("DELETE" + ID);
-
         return await this.bookModel.findOneAndDelete({ _id: ID });
     }
 }

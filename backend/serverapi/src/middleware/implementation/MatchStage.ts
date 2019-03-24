@@ -7,10 +7,15 @@ export class MatchStage implements IStage {
         this.stage = {
             $match: {}
         };
-        if (operator === "and" || operator === undefined || operator === null) {
-            Object.assign(this.stage["$match"], { $and: [] })
+
+        if (operator === undefined || operator === null) {
+            this.operator = "and";
+        }
+
+        if (this.operator === "and") {
+            Object.assign(this.stage["$match"], { $and: [] });
         } else {
-            Object.assign(this.stage["$match"], { $or: [] })
+            Object.assign(this.stage["$match"], { $or: [] });
         }
     }
     updateInternal(subProperty: string, property: object) {

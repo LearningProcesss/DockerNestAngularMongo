@@ -3,16 +3,20 @@ version: '3'
 services: 
   database:
     image: mongo
+    #rimuovere mapping porte in prod.
     ports:
      - "27017:27017"
+    # command: 
   frontend:
     build: frontend/booker
+    #rimuovere mapping porte in prod.
     ports:
       - "3000:80"
     depends_on: 
       - backend
   backend:
     build: backend/serverapi
+    #rimuovere mapping porte in prod.
     ports:
       - "4000:4000"
     environment: 
@@ -23,6 +27,7 @@ services:
       - database
   log:
     image: elasticsearch:5
+    #rimuovere mapping porte in prod.
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -30,6 +35,7 @@ services:
       - discovery.type=single-node
   kibana:
     image: kibana:5
+    #rimuovere mapping porte in prod.
     ports:
       - "5601:5601"
     depends_on: 

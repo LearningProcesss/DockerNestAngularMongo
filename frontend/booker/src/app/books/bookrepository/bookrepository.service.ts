@@ -53,11 +53,13 @@ export class BookrepositoryService {
 
     }
 
-    if(query != null && query != undefined && query != "") {
+    if (query != null && query != undefined && query != "") {
       params["query"] = [query];
+    } else {
+      params["query"] = ["_id??true"];
     }
 
-    if(operator != null && operator != undefined && operator != "") {
+    if (operator != null && operator != undefined && operator != "") {
       params["operator"] = [operator];
     }
 

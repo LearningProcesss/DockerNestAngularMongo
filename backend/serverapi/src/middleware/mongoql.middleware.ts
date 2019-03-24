@@ -8,13 +8,13 @@ export class MongoqlMiddleware implements NestMiddleware {
   resolve(...args: any[]): MiddlewareFunction {
     return (req, res, next) => {
 
+      req.aggregator = null;
+
       const arg = args[0] as IMongoqlMiddlewareParams;
 
-      // const t = new RestQueryToMongodb(req.query as IHttpRestParams, arg.model);
-
-      // req.aggregator = t.aggregatorContainerJs;
-
       req.aggregator = RestQueryToMongodb.parse(req.query as IHttpRestParams, arg.model);
+
+      console.log(JSON.stringify(req.aggregator));
 
       next();
     }

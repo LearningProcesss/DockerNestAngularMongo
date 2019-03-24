@@ -34,7 +34,7 @@ export class EsService {
             }
         }
         this.elasticsearchService.index(prm2).subscribe((resp: any) => {
-            console.log(resp);
+            // console.log(resp);
 
         }, error => console.log(error));
         // this.elasticsearchService.create(prm).subscribe((resp: CreateDocumentResponse) => {
