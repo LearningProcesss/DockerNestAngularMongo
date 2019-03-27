@@ -1,124 +1,126 @@
 import { IOperator } from '../interface/IOperator';
-export class Eq implements IOperator {
-    operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+import { AbstractOperator } from '../abstract/AbstractOperator';
+export class Eq extends AbstractOperator implements IOperator {
 
-        this.operator = { [modelPathField]: { $eq: value } };
+    operator: object;
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
+
+        this.operator = { [modelPathField]: { $eq: this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) } };
 
         return this.operator;
     }
 }
-export class Gt implements IOperator {
+export class Gt extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $gt: value } };
+        this.operator = { [modelPathField]: { $gt: this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) } };
 
         return this.operator;
     }
 }
-export class Lt implements IOperator {
+export class Lt extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $lt: value } };
+        this.operator = { [modelPathField]: { $lt: this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) } };
 
         return this.operator;
     }
 }
-export class Lte implements IOperator {
+export class Lte extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $lte: value } };
+        this.operator = { [modelPathField]: { $lte: this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) } };
 
         return this.operator;
     }
 }
-export class Gte implements IOperator {
+export class Gte extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $gte: value } };
+        this.operator = { [modelPathField]: { $gte: this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) } };
 
         return this.operator;
     }
 }
-export class Ne implements IOperator {
+export class Ne extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $ne: value } };
+        this.operator = { [modelPathField]: { $ne: this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) } };
 
         return this.operator;
     }
 }
-export class RegEndWith implements IOperator {
+export class RegEndWith extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $regex: new RegExp(value + "$"), $options: "i" } };
+        this.operator = { [modelPathField]: { $regex: new RegExp(this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value)) + "$"), $options: "i" } };
 
         return this.operator;
     }
 }
-export class RegStartWith implements IOperator {
+export class RegStartWith extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $regex: new RegExp("^" + value), $options: "i" } };
+        this.operator = { [modelPathField]: { $regex: new RegExp("^" + this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value))), $options: "i" } };
 
         return this.operator;
     }
 }
-export class RegContains implements IOperator {
+export class RegContains extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
-        this.operator = { [modelPathField]: { $regex: new RegExp(value), $options: "i" } };
+        this.operator = { [modelPathField]: { $regex: new RegExp(this.convert(modelPathFieldType, this.normalizeString(modelPathFieldType, value))), $options: "i" } };
 
         return this.operator;
     }
 }
-export class Exist implements IOperator {
+export class Exist extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
         this.operator = { [modelPathField]: { $exists: true } };
 
         return this.operator;
     }
 }
-export class NotExist implements IOperator {
+export class NotExist extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
         this.operator = { [modelPathField]: { $exists: false } };
 
         return this.operator;
     }
 }
-export class In implements IOperator {
+export class In extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
         this.operator = { [modelPathField]: { $in: [...value.split(":").map(v => new RegExp(v, "i"))] } };
 
         return this.operator;
     }
 }
-export class NotIn implements IOperator {
+export class NotIn extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
         this.operator = { [modelPathField]: { $nin: [...value.split(":").map(v => new RegExp(v, "i"))] } };
 
         return this.operator;
     }
 }
-export class Between implements IOperator {
+export class Between extends AbstractOperator implements IOperator {
     operator: object;
-    interpret(modelPathField: string, value: string, ...options: object[]): object {
+    interpret(modelPathFieldType: string, modelPathField: string, value: string, ...options: object[]): object {
 
         this.operator = { [modelPathField]: { $gte: +value.split(":")[0], $lt: +value.split(":")[1] } };
 
