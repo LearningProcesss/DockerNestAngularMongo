@@ -3,8 +3,8 @@ import { IOperatorObjectCreator } from '../interface/IOperatorObjectCreator';
 import { AbstractConditionOperatorObjectCreator } from '../abstract/AbstractConditionOperatorObjectCreator';
 import * as mongoose from 'mongoose';
 import { IOperator } from '../interface/IOperator';
-import { Eq, Gt, Lt, Gte, Lte, Ne, RegEndWith, RegStartWith, RegContains, Exist, NotExist, In, NotIn, Between } from './Operators';
-import { IField } from '../interface/IField';
+import { Eq, Gt, Lt, Gte, Lte, Ne, RegEndWith, RegStartWith, RegContains, Exist, NotExist, In, NotIn, Between, Select } from './Operators';
+import { IUrlField } from '../interface/IField';
 export class ConditionOperatorCreator extends AbstractConditionOperatorObjectCreator implements IOperatorObjectCreator {
     fieldModelValue: IParamFieldValue;
     operatorDefList: Map<string, IOperator> = new Map<string, IOperator>();
@@ -29,7 +29,7 @@ export class ConditionOperatorCreator extends AbstractConditionOperatorObjectCre
 
     //     this.init();
     // }
-    constructor(fragment: IField, schema: mongoose.Schema<any>) {
+    constructor(fragment: IUrlField, schema: mongoose.Schema<any>) {
         super(fragment, schema);
 
         this.operatorDefList.set("eq", new Eq());
@@ -46,6 +46,7 @@ export class ConditionOperatorCreator extends AbstractConditionOperatorObjectCre
         this.operatorDefList.set("in", new In());
         this.operatorDefList.set("nin", new NotIn());
         this.operatorDefList.set("bw", new Between());
+        this.operatorDefList.set("s", new Select());
 
         this.init();
     }

@@ -24,9 +24,12 @@ export abstract class AbstractOperator {
         return value;
     }
 
-    private tryParseInt(value: string) {
+    /** Try convert a string value as number.
+     *  If not possible retunr 0.
+    */
+    protected tryParseInt(value: string) {
 
-        var retValue: any;
+        var retValue: number;
 
         if (value !== null) {
 
@@ -44,6 +47,7 @@ export abstract class AbstractOperator {
                 }
             }
         }
+
         return null;
     }
 }

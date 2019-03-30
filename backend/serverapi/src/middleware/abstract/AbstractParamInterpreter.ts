@@ -35,4 +35,28 @@ export abstract class AbstractParamInterpreter {
 
         this.regexSplitUgualeNotParentesi = new RegExp(/=(?![^\(\[]*[\]\)])/g);
     }
+
+    protected tryParseInt(value: string) {
+
+        var retValue: number;
+
+        if (value !== null) {
+
+            if (value.length > 0) {
+
+                try {
+                    retValue = Number(value);
+                } catch (error) {
+
+                }
+
+                if (!isNaN(retValue)) {
+
+                    return retValue;
+                }
+            }
+        }
+
+        return null;
+    }
 }

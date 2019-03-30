@@ -1,19 +1,18 @@
+import { AbstractParamInterpreter } from "../abstract/AbstractParamInterpreter";
+import { IParamInterpreter } from "../interface/IParamInterpreter";
+import { IUrlField } from "../interface/IField";
 import * as mongoose from 'mongoose';
-import { AbstractParamInterpreter } from '../abstract/AbstractParamInterpreter';
-import { MatchStage } from './MatchStage';
-import { ConditionOperatorCreator } from './ConditionOperatorCreator';
-import { IParamInterpreter } from '../interface/IParamInterpreter';
-import { IUrlField } from '../interface/IField';
+import { ProjectStage } from "./ProjectStage";
+import { ConditionOperatorCreator } from "./ConditionOperatorCreator";
 
-export class Query extends AbstractParamInterpreter implements IParamInterpreter {
-
+export class Projection extends AbstractParamInterpreter implements IParamInterpreter {
+    
     constructor(parameter: string, protected schema: mongoose.Schema<any>, protected operator: string) {
         super(parameter, schema, operator);
     }
-    interpretParamater() {
-
-        // this.fragmentTest().forEach(field => this.interpretFragmentField(field));
-
+    
+    interpretParamater(): object {
+        
         let mongoQueryParams = this.fragmentTest().map(field => new ConditionOperatorCreator(field, this.schema).interpret());
 
         if (!mongoQueryParams.every(prm => prm === null)) {
@@ -21,7 +20,7 @@ export class Query extends AbstractParamInterpreter implements IParamInterpreter
             this.buildInitialStage();
 
             mongoQueryParams.filter(prm => prm !== null)
-                .forEach(prm => this.stage.updateInternal("$match", prm));
+                .forEach(prm => this.stage.updateInternal("$project", prm));
         }
 
         mongoQueryParams = null;
@@ -31,22 +30,14 @@ export class Query extends AbstractParamInterpreter implements IParamInterpreter
         // return this.stage.stage;
 
         return this.stageInternal();
-    }
+    }    
     interpretFragment(fragment: string) {
-
-        // this.stage.updateInternal("$match", new ConditionOperatorCreator(fragment, this.schema).interpret());
-
-        //OLD this.stageJs.updateInternal("$match", new ConditionOperatorCreator(fragment, this.schema).interpret());
-    }
-
-    interpretFragmentField(field: IUrlField) {
-        this.stage.updateInternal("$match", new ConditionOperatorCreator(field, this.schema).interpret());
+        throw new Error("Method not implemented.");
     }
     fragments(): string[] {
-        return this.paramter.split(",");
+        throw new Error("Method not implemented.");
     }
-
-    fragmentTest() {
+    fragmentTest(): IUrlField[] {
 
         let fields: IUrlField[] = [];
 
@@ -79,16 +70,16 @@ export class Query extends AbstractParamInterpreter implements IParamInterpreter
 
         return fields;
     }
-
     buildInitialStage() {
-        this.stage = new MatchStage(this.operator);
+        this.stage = new ProjectStage();
     }
     stageInternal(): object {
-
         if (this.stage === undefined) { 
             return null;
         }
 
         return this.stage.stage;
     }
+
+
 }

@@ -10,13 +10,20 @@ export class BooksController {
     constructor(private readonly bookService: BooksService, private readonly logService: EsService) { }
 
     @Get()
-    public async getBooks(@Request() req, @Response() res, @Query() param: IHttpRestParams) {
+    public async getBooks(@Request() req, @Response() res) {
 
-        // this.logService.log("logs-method", "method", "getBooks", req.aggregator, 1);
+        // const books = req.aggregator === null || req.aggregator === undefined || req.aggregator.length == 0 ? await this.bookService.findAll() : await this.bookService.aggregate(req.aggregator);
 
-        const books = req.aggregator === null || req.aggregator === undefined || req.aggregator.length == 0 ? await this.bookService.findAll() : await this.bookService.aggregate(req.aggregator);
+        let books: IBook[];
 
-        // this.logService.log("logs-method", "method", "getBooks", books, 1);
+        if (req.aggregator == null || req.aggregator == undefined) {
+            res.status(HttpStatus.BAD_REQUEST).json({
+                message: "query parameter are incorrect"
+            });
+        }
+        else {
+            books = await this.bookService.aggregate(req.aggregator);
+        }
 
         return res.status(HttpStatus.OK).json(books);
     }
@@ -39,7 +46,7 @@ export class BooksController {
         try {
 
             const bookDb = await this.bookService.create(bookHttp);
-            
+
             this.logService.log("logs-method", "method", "createBook", bookDb, 1);
 
             return res.status(HttpStatus.OK).json(bookDb);

@@ -19,6 +19,9 @@ export class MatchStage implements IStage {
         }
     }
     updateInternal(subProperty: string, property: object) {
+
+        if (property == null) { return; }
+
         if (Object.keys(this.stage).indexOf(subProperty, 0) >= 0) {
             if (this.operator == "and") {
                 if (Object.keys(this.stage["$match"]).indexOf("$and") >= 0) {

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { IField } from '../interface/IField';
+import { IUrlField } from '../interface/IField';
 export abstract class AbstractConditionOperatorObjectCreator {
     protected operator: object = {};
     protected regex: RegExp;
@@ -24,7 +24,7 @@ export abstract class AbstractConditionOperatorObjectCreator {
 
     //     this.regexSplitSeparore = new RegExp(/:(?=(?:(?:[^'"]*(?:'|")){2})*[^'"]*$)/g);
     // }
-    constructor(protected fragment: IField, protected schema: mongoose.Schema<any>) {
+    constructor(protected fragment: IUrlField, protected schema: mongoose.Schema<any>) {
 
         this.regex = new RegExp(/(<|=|>|!|\$|\^|~|\?)/g);
 

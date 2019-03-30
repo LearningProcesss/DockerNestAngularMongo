@@ -1,10 +1,10 @@
-import { IField } from "./IField";
+import { IUrlField } from "./IField";
 
 export interface IParamInterpreter {
     interpretParamater(): object;
     interpretFragment(fragment: string);
     fragments(): string[];
-    fragmentTest() : IField[];
+    fragmentTest() : IUrlField[];
     buildInitialStage();
     stageInternal(): object;
 }

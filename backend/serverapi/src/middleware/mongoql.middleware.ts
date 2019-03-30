@@ -1,7 +1,7 @@
-import { Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
-import * as mongoose from 'mongoose';
+import { Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common'
 import { RestQueryToMongodb } from "./implementation/RestQueryToMongodb";
 import { IHttpRestParams } from "./interface/IHttpRestParams";
+import { IMongoqlMiddlewareParams } from './interface/IMongoqlMiddlewareParams';
 
 @Injectable()
 export class MongoqlMiddleware implements NestMiddleware {
@@ -23,7 +23,4 @@ export class MongoqlMiddleware implements NestMiddleware {
   }
 }
 
-export interface IMongoqlMiddlewareParams {
-  model: mongoose.Schema<any>;
-  path: string;
-}
+
